@@ -16,7 +16,6 @@ namespace eCommerce.Data
         public GameContext(DbContextOptions<GameContext> options)
             : base(options)
         {
-
         }
 
         // add a Db<T> for each enity you want to
