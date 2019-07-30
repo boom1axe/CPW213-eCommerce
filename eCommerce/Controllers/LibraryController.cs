@@ -17,9 +17,12 @@ namespace eCommerce.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<VideoGame> allGames =
+                await VideoGameDb.GetAllGames(_context);
+            return View(allGames);
         }
 
         [HttpGet]
@@ -29,12 +32,12 @@ namespace eCommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(VideoGame game)
+        public async Task<IActionResult> AddAsync(VideoGame game)
         {
             if (ModelState.IsValid)
             {
                 // Add to database
-                VideoGameDb.Add(game, _context);
+                await VideoGameDb.AddAsync(game, _context);
                 return RedirectToAction("index");
             }
 
