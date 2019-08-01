@@ -25,6 +25,13 @@ namespace eCommerce.Data
             return g;
         }
 
+        public static async Task<VideoGame> UpdateGame(VideoGame g, GameContext context)
+        {
+            context.Update(g);
+            await context.SaveChangesAsync();
+            return g;
+        }
+
         /// <summary>
         /// Retrives all games sorted by alphabetical order
         /// by title
