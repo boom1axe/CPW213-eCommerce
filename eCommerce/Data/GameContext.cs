@@ -21,5 +21,6 @@ namespace eCommerce.Data
         // add a Db<T> for each enity you want to
         // keep tract of in the database
         public DbSet<VideoGame> VideoGames { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 }
