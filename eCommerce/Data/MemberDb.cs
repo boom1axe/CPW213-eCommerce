@@ -15,7 +15,7 @@ namespace eCommerce.Data
         /// <param name="context"></param>
         /// <param name="m"></param>
         /// <returns></returns>
-        public static Task<Member> Add(GameContext context, MemberDb m)
+        public static async Task<Member> AddAsync(GameContext context, Member m)
         {
             context.Members.Add(m);
             await context.SaveChangesAsync();

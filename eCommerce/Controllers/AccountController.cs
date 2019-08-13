@@ -28,7 +28,7 @@ namespace eCommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                await MemberDb.Add(_context, m);
+                await MemberDb.AddAsync(_context, m);
 
                 TempData["Message"] = "You registered sucessfully";
                 return RedirectToAction("Index", "Home");
