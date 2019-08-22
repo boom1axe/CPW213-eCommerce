@@ -28,16 +28,20 @@ namespace eCommerce.Controllers
             // convert game into string
             string data = JsonConvert.SerializeObject(g);
 
-            // set up cookie
-            CookieOptions options = new CookieOptions()
-            {
-                Secure = true,
-                MaxAge = TimeSpan.FromDays(365) // A whole year
-            };
-
-            _httpAccessor.HttpContext.Response.Cookies.Append("CartCookie", data, options);
+            CartHelper.Add(_httpAccessor, g);
 
             return RedirectToAction("Index", "Libary");
+
+            // set up cookie
+            //CookieOptions options = new CookieOptions()
+            //{
+            //    Secure = true,
+            //    MaxAge = TimeSpan.FromDays(365) // A whole year
+            //};
+
+            //_httpAccessor.HttpContext.Response.Cookies.Append("CartCookie", data, options);
+
+            
         }
     }
 }
