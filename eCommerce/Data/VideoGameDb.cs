@@ -62,5 +62,53 @@ namespace eCommerce.Data
 
             return g;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static Task<List<VideoGame>> Search(GameContext context, SearchCriteria criteria)
+        {
+            // Selects * from VideoGames
+            // This does NOT query the database
+            IQueryable<VideoGame> allGames =
+                from g in context.VideoGames
+                select g;
+
+            if (criteria.MinPrice.HasValue)
+            {
+                //add to where
+                //price >= crieria.minprice
+                allGames = from g in allGames
+                           where g.Price >= criteria.MinPrice
+                           select g;
+            }
+
+            if (criteria.MaxPrice.HasValue)
+            {
+                allGames = from g in allGames
+                           where g.Price <= criteria.MaxPrice
+                           select g;
+            }
+
+            if (!string.IsNullOrWhiteSpace(criteria.Title))
+            {
+                allGames = from g in allGames
+                           where g.Title.StartsWith(criteria.Title)
+                           select g;
+            }
+
+            if (!string.IsNullOrWhiteSpace(criteria.Rating))
+            {
+                allGames = from g in allGames
+                           where g.Rating == criteria.Rating
+                           select g;
+            }
+
+            // send final query to database to return results
+            // EF does not send the Query to the DB untill 
+            return await allGames.ToListAsync();
+        }
     }
 }
