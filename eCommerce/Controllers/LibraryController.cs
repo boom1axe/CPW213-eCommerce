@@ -18,6 +18,37 @@ namespace eCommerce.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Search(SearchCriteria criteria)
+        {
+            if (validSearch(criteria))
+            {
+                criteria.GameResults = await VideoGameDb.SearchAsync(_context, criteria);
+            }
+            
+
+            return View(criteria);
+        }
+
+        /// <summary>
+        /// returns true if user searched by at least
+        /// one criteria
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
+        private bool validSearch(SearchCriteria criteria)
+        {
+            if (criteria.Title == null &&
+                criteria.Rating == null &&
+                criteria.MinPrice == null &&
+                criteria.MaxPrice == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<VideoGame> allGames =

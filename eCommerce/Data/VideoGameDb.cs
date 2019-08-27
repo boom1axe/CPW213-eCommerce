@@ -68,7 +68,7 @@ namespace eCommerce.Data
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static Task<List<VideoGame>> Search(GameContext context, SearchCriteria criteria)
+        public static async Task<List<VideoGame>> SearchAsync(GameContext context, SearchCriteria criteria)
         {
             // Selects * from VideoGames
             // This does NOT query the database
