@@ -32,6 +32,12 @@ namespace eCommerce.Controllers
 
             return RedirectToAction("Index", "Libary");
 
+            public IActionResult Checkout()
+            {
+                List<VideoGame> games = CartHelper.GetGames(_httpAccessor);
+                return View(games);
+            }
+
             // set up cookie
             //CookieOptions options = new CookieOptions()
             //{

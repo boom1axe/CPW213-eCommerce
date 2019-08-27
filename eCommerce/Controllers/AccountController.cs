@@ -37,5 +37,21 @@ namespace eCommerce.Controllers
             return View(m);
             
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Login(LoginViewModel model)
+        //{
+        //    if (Model)
+        //    {
+
+        //    }
+        //    return;
+        //}
     }
 }
