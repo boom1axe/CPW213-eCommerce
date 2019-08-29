@@ -50,11 +50,31 @@ namespace eCommerce.Models
 
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
+        [DateOfBirth]
         //[Range(typeof(DateTime), 
         //    DateTime.Today.AddYears(-120).ToShortDateString(),
         //    DateTime.Today.ToShortDateString())]
         // [Required] - Its already reqired
         // DateTime is structure (it's a value type)
         public DateTime DateOfBirth { get; set; }
+    }
+
+    public class DateOfBirthAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, 
+                           ValidationContext validationContext)
+        {
+            Member m = validationContext.ObjectInstance as Member;
+
+            //get the value of date of birth for model
+            DateTime dob = Convert.ToDateTime(value);
+
+            DateTime oldestAge = DateTime.Today.AddYears(-120);
+            if (dob > DateTime.Today || dob < oldestAge)
+            {
+                string errMsg = "You can not be born in future or more then 120 years ago";
+                return new ValidationResult(errMsg);
+            }
+        }
     }
 }
