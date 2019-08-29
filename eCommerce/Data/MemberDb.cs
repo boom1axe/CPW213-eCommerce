@@ -1,4 +1,5 @@
 ﻿using eCommerce.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,21 @@ namespace eCommerce.Data
 {
     public static class MemberDb
     {
+
+        public async static Task<bool> IsUsernameTaken(GameContext context, string username)
+        {
+            return await context.Members
+                                .Where(mem => mem.Username == username.Trim())
+                                .AnyAsync();
+        }
+
+        public async static Task<bool> IsEmailTaken(GameContext game, string email)
+        {
+            return await game.Members
+                             .Where(m => m.EmailAddress == email.Trim())
+                             .AnyAsync();
+        }
+
         /// <summary>
         /// Adds a member to the database. returns the member
         /// with their MemberId populated.
